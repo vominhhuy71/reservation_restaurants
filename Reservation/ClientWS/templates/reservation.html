@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Reservation</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    
+    <h1> Reservation </h1>
+    <p>Reserve a seat at your favourite restaurant.</p>
+    <ul>
+		{% for restaurant in restaurants %}
+		<a href="/resv/{{restaurant["name"].lower()}}"><li >{{ restaurant["name"]}} at {{ restaurant["address"]}}</li></a>
+		{% endfor %}
+	</ul>
+    {% endblock %}
+  </body>
+</html>

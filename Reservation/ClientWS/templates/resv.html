@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Available</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    
+    <h1> {{name}} </h1>
+    <p>Available for booking</p>
+    <ul>
+		{% for timeslot in timeslots %}
+		<a href="/booking/{{name}}/{{ timeslot["timeslot"]}}/{{timeslot["available"]}}"><li>{{ timeslot["timeslot"]}}. Available: {{timeslot["available"]}}</li></a>
+		{% endfor %}
+	</ul>
+    {% endblock %}
+  </body>
+</html>

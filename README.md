@@ -1,0 +1,1 @@
+This project allows customers to book seats in restaurants and let restaurants add or remove available seats for booking.

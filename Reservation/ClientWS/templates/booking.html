@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Reservation</title>
+  </head>
+  <body margin="10">
+    {% extends "template.html" %}
+    {% block content %}
+	<h1>Personal Information</h1>
+	  <p>Time: {{timeslot}}</p>
+	  <p>Available: {{available}}</p>
+      <form method="post" >
+		<p>Name</p>
+		<input type="text" placeholder="Customer" name="name" autofocus="">
+		<p>Seats</p>
+        <input type="text" placeholder="Seats" name="seats">
+		<p/>
+        <input type="submit" value="Book">
+      </form>
+    {% endblock %}
+  </body>
+</html>

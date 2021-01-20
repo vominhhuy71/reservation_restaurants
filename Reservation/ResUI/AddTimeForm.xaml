@@ -1,0 +1,21 @@
+﻿<Window x:Class="ResUI.AddTimeForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ResUI"
+        mc:Ignorable="d"
+        Title="AddTimeForm" Height="363.626" Width="713.626">
+    <Grid>
+        <Button Content="X" HorizontalAlignment="Left" BorderThickness="0" Height="28" Margin="660,10,0,0" VerticalAlignment="Top" Width="30" Background="White" Click="Close_Form"/>
+        <Label Content="Add time slot" HorizontalAlignment="Left" Height="53" Margin="29,32,0,0" VerticalAlignment="Top" Width="175" FontSize="25"/>
+        <Label Content="Time (hh:mm):" HorizontalAlignment="Left" Height="35" Margin="90,114,0,0" VerticalAlignment="Top" Width="160"  FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Height="35" Margin="279,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="89" FontSize="20" Name ="AvFrom"/>
+        <Label Content="-" HorizontalAlignment="Left" FontSize="15" Margin="396,114,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="35" Margin="442,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="84" FontSize="20" Name ="AvEnd"/>
+        <Label Content="Available:" HorizontalAlignment="Left" Height="35" Margin="90,181,0,0" VerticalAlignment="Top" Width="160"  FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Height="35" Margin="279,181,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="89" FontSize="20" Name ="AvailableSeats"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="502,256,0,0" VerticalAlignment="Top" Width="114" Height="46" Click="AddTime_Click"/>
+
+    </Grid>
+</Window>
