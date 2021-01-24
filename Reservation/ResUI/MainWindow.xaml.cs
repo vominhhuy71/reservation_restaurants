@@ -46,7 +46,7 @@ namespace ResUI
 
         private async void LoadContents(string res_name, string token)
         {
-            while (true)
+            //while (true)
             {
                 HttpClient client = new HttpClient();
                 string uri = $"http://localhost:5000/restrv1/{res_name}/{token}/available";
@@ -55,27 +55,28 @@ namespace ResUI
                 string responseString = await response.Content.ReadAsStringAsync();
                 List<TimeSlot> timeSlots = JsonConvert.DeserializeObject<List<TimeSlot>>(responseString);
                 lvSlots.ItemsSource = timeSlots;
-
-                await Task.Delay(3000);
             }            
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Reservation.IsSelected)
             {
                 this.LoadCustomers(res_name.ToLower(), token);
+                e.Handled = true;
             }
             if (Available.IsSelected)
             {
                 this.LoadContents(res_name.ToLower(), token);
+                e.Handled = true;
             }
-              
+
+            e.Handled = true;
         }
 
         private async void LoadCustomers(string res_name, string token)
         {
-            while (true)
+            //while (true)
             {
                 HttpClient client = new HttpClient();
                 string uri = $"http://localhost:5000/restrv1/{res_name}/{token}/customers";
@@ -85,21 +86,20 @@ namespace ResUI
                 List<Booking> bookings = JsonConvert.DeserializeObject<List<Booking>>(responseString);
                 lvBookings.ItemsSource = bookings;
 
-                await Task.Delay(3000);
             }
         }
-        private async void remove_Click(object sender, RoutedEventArgs e)
+        private async void Remove_Click(object sender, RoutedEventArgs e)
         {
             var selectedSlot = lvSlots.SelectedItems[0] as TimeSlot;
             HttpClient client = new HttpClient();
             string uri = $"http://localhost:5000/restrv1/{res_name}/{token}/delete";
-            //string output = JsonConvert.SerializeObject(selectedSlot);
-            //var httpContent = new StringContent(output, Encoding.UTF8, "application/json");
-            //HttpResponseMessage response = client.DeleteAsync(uri,Content: httpContent).Result;
             var request = new HttpRequestMessage(HttpMethod.Delete, uri);
             request.Content = new StringContent(JsonConvert.SerializeObject(selectedSlot), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.SendAsync(request).Result;
-            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
+                this.LoadContents(res_name.ToLower(), token);
+            }
 
         }
 
@@ -110,9 +110,28 @@ namespace ResUI
             addTime.ShowDialog();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            var selectedSlot = lvBookings.SelectedItems[0] as Booking;
+            HttpClient client = new HttpClient();
+            string uri = $"http://localhost:5000/restrv1/{res_name}/{token}/delete/booking";
+            var request = new HttpRequestMessage(HttpMethod.Delete, uri);
+            request.Content = new StringContent(JsonConvert.SerializeObject(selectedSlot), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                this.LoadCustomers(res_name.ToLower(), token);
+            }
+        }
 
+        private void lvBookings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void lvSlots_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

@@ -19,7 +19,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="lvBookings" HorizontalAlignment="Stretch" Height="232" Margin="15,51,4.8,0" VerticalAlignment="Top" Width="749">
+                    <ListView x:Name="lvBookings" HorizontalAlignment="Stretch" Height="232" Margin="15,51,4.8,0" VerticalAlignment="Top" Width="749" IsSynchronizedWithCurrentItem="False" Cursor="Hand" SelectionChanged="lvBookings_SelectionChanged">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding customer}"/>
@@ -29,38 +29,28 @@
                         </ListView.View>
                     </ListView>
                     <Label Content="The upcoming reservation will come here. " HorizontalAlignment="Left" Height="38" Margin="10,8,0,0" VerticalAlignment="Top" Width="749"/>
+                    <Button Content="Remove" HorizontalAlignment="Left" Margin="604,288,0,0" VerticalAlignment="Top" Width="92" Height="39" Click="Button_Click_1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Available" HorizontalAlignment="Left" Margin="0.2,0,-44.4,0" Width="93" Name="Available">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox HorizontalAlignment="Left" Height="27" Margin="-2,0,-1.2,0" TextWrapping="Wrap" Text="Add, remove or check status for reservation." VerticalAlignment="Top" Width="772"/>
-                    <ListView x:Name="lvSlots" HorizontalAlignment="Left" Height="248" Margin="0,27,-1.2,0" VerticalAlignment="Top" Width="770">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Left">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="500"></ColumnDefinition>
-                                        <ColumnDefinition Width="100"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"></RowDefinition>
-                                        <RowDefinition Height="1*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <TextBox Text="{Binding timeslot}" BorderThickness="0" IsReadOnly="True"></TextBox>
-                                    <TextBox Text="{Binding available}" Grid.Column="1" BorderThickness="0" IsReadOnly="True"></TextBox>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Label BorderThickness="0" HorizontalAlignment="Left" Height="27" Margin="0,0,-3.2,0" Content="Add, remove or check status for reservation." VerticalAlignment="Top" Width="772"/>
+
                     <Button Content="Add time" HorizontalAlignment="Left" Height="41" Margin="612,284,0,0" VerticalAlignment="Top" Width="147" Click="addTime_Click"/>
-                    <Button Content="Remove" HorizontalAlignment="Left" Height="41" Margin="10,284,0,0" VerticalAlignment="Top" Width="147" Click="remove_Click"/>
+                    <Button Content="Remove" HorizontalAlignment="Left" Height="41" Margin="10,284,0,0" VerticalAlignment="Top" Width="147" Click="Remove_Click"/>
+                    <ListView Cursor="Hand" x:Name="lvSlots" HorizontalAlignment="Left" Height="234" Margin="10,32,0,0" VerticalAlignment="Top" Width="746" SelectionChanged="lvSlots_SelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Timeslot" Width="300" DisplayMemberBinding="{Binding timeslot}"/>
+                                <GridViewColumn Header="Available" Width="200" DisplayMemberBinding="{Binding available}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Info" Margin="-0.6,0,-19.4,0" HorizontalAlignment="Left" Width="64">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <Grid Height="69" Width="281"/>
+
         </TabControl>
+
         <TextBox Text="Restaurant name here" HorizontalAlignment="Left" Margin="10,10,0,366" TextWrapping="Wrap" Name="ResName" BorderThickness="0" IsReadOnly="True" Width="774" FontSize="25px"/>
 
     </Grid>

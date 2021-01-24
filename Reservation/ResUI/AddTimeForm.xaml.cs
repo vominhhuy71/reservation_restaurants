@@ -25,6 +25,7 @@ namespace ResUI
 
         public string res_name { get; set; }
 
+
         public AddTimeForm()
         {
             InitializeComponent();
@@ -56,6 +57,7 @@ namespace ResUI
             {
                 this.Close();
                 MainWindow mainWindow = new MainWindow(res_name,token);
+                mainWindow.Available.Focus();
                 mainWindow.ShowDialog();
             }
 

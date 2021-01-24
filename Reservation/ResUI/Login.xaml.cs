@@ -77,15 +77,20 @@ namespace ResUI
                 string output = JsonConvert.SerializeObject(request);
                 var httpContent = new StringContent(output, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = client.PutAsync("http://localhost:5000/restrv1/login", content: httpContent).Result;
-                string resNameString = await response.Content.ReadAsStringAsync();
-                JObject resnameResponse = JObject.Parse(resNameString);
-                string resName = resnameResponse.SelectToken("name").ToString();
-                string token = resnameResponse.SelectToken("token").ToString();
+                string resNameString = await response.Content.ReadAsStringAsync();      
                 if (response.IsSuccessStatusCode)
                 {
+                    JObject resnameResponse = JObject.Parse(resNameString);
+                    string resName = resnameResponse.SelectToken("name").ToString();
+                    string token = resnameResponse.SelectToken("token").ToString();
                     this.Close();
                     MainWindow mainWindow = new MainWindow(resName,token);
                     mainWindow.ShowDialog();
+                }
+                else
+                {
+                    errormessage.Visibility = Visibility.Visible;
+                    errormessage.Text = "Invalid username/password!";
                 }
                 
             }
